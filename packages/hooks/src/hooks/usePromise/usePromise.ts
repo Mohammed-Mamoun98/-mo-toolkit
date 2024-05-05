@@ -1,28 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable no-debugger */
-// import translate from "services/translate/translate";
 import { useState, useEffect } from "react";
-// import { useDispatch } from "react-redux";
-// import { createNotification } from "redux/actions/ui";
-// import { wait } from "utils/time";
-// import { useTimer } from "./useTimer";
-// import { ITimestamp } from "services/dlabService";
-
-/**
- *  const promiseFunc = () => new Promise((resolve,reject) => resolove({ count : 1 }))
- *
- *  const [
- *  getData: fucntion, // initiate the request by calling this func.
- *  data: any,    // the resolved promise data => { count : 1 }
- *  loading: boolean,  // promise resolving loading
- *  error: Error,  // error object in case promise rejected
- * ] = usePromise(promiseFunction)
- *
- */
 
 const DEFAULT_ERROR = "Internal Server Error";
 
-export type STATUS_TYPES = "success" | "idle" | "error";
+type STATUS_TYPES = "success" | "idle" | "error";
 interface IBaseConfig {
   initReq?: boolean;
   defaultRes?: any;
