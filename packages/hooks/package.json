@@ -32,5 +32,6 @@
     "typescript": "^5.2.2",
     "vite": "^5.2.0"
   },
-  "gitHead": "a422d02fdc062e7c63d7d3159fc77c25df06414b"
+  "description": "This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.",
+  "author": "mo"
 }
