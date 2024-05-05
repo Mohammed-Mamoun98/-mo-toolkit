@@ -1,5 +1,6 @@
 {
   "name": "@mo-toolkit/hooks",
+  "license": "MIT",
   "private": false,
   "version": "0.0.2",
   "type": "module",
@@ -27,5 +28,6 @@
     "eslint-plugin-react-refresh": "^0.4.6",
     "typescript": "^5.2.2",
     "vite": "^5.2.0"
-  }
+  },
+  "gitHead": "28e1b0b80119ef1d46e6c9ac4b8da0bde5e0066d"
 }
