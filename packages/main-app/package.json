@@ -1,7 +1,7 @@
 {
   "name": "main-app",
   "private": true,
-  "version": "0.0.4",
+  "version": "0.0.5",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -10,7 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@mo-toolkit/counter": "^0.0.4",
+    "@mo-toolkit/counter": "^0.0.5",
     "@mo-toolkit/hooks": "0.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
