@@ -1,15 +1,8 @@
 {
   "name": "@mo-toolkit/hooks",
-  "license": "MIT",
   "private": false,
   "version": "0.0.7",
   "type": "module",
-  "publishConfig": {
-    "access": "public"
-  },
-  "exports": {
-    ".": "./src/index.ts"
-  },
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
@@ -18,7 +11,8 @@
   },
   "dependencies": {
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "vite-plugin-dts": "^3.9.1"
   },
   "devDependencies": {
     "@types/react": "^18.2.66",
@@ -31,7 +25,5 @@
     "eslint-plugin-react-refresh": "^0.4.6",
     "typescript": "^5.2.2",
     "vite": "^5.2.0"
-  },
-  "description": "This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.",
-  "author": "mo"
+  }
 }
