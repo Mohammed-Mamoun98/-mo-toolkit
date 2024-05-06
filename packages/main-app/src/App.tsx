@@ -1,5 +1,4 @@
 import React from "react";
-import { Counter } from "@mo-toolkit/counter";
 import "./App.css";
 import { usePromise } from "@mo-toolkit/hooks";
 
@@ -26,7 +25,6 @@ function App() {
   return (
     <>
       <p>Main App</p>
-      <Counter />
       <br />
       <h3>USE PROMISE HOOK</h3>
       <button onClick={getSample}>Call the hook</button>
