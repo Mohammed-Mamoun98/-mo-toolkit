@@ -11,4 +11,14 @@ export default defineConfig({
       outDir: "dist/types",
     }),
   ],
+  build: {
+    outDir: "dist",
+    assetsDir: "", // Specify an empty assetsDir
+    assetsInlineLimit: 0,
+    rollupOptions: {
+      output: {
+        entryFileNames: "index.js", // Output a single index.js file
+      },
+    },
+  },
 });
