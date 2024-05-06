@@ -7,8 +7,8 @@ export default defineConfig({
   plugins: [
     react(),
     dts({
-      outDir: "dist",
-      include: ['src/index.ts'],
+      rollupTypes: true,
+      outDir: "dist/types",
     }),
   ],
 });
