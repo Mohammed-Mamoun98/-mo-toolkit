@@ -1,6 +1,6 @@
-import { useState } from "react";
+import React, { useState } from "react";
 
-export default function Counter () {
+export default function Counter() {
   const [counter, setCounter] = useState<number>(0);
   return (
     <div>
