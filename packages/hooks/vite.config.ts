@@ -9,7 +9,7 @@ export default defineConfig({
     react(),
     dts({
       rollupTypes: true,
-      outDir: "dist/types",
+      outDir: "dist",
     }),
   ],
   build: {
