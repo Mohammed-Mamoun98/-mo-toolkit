@@ -1,30 +1,111 @@
-# React + TypeScript + Vite
+# @mo-toolkit/hooks
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+### Hooks Provided by @mo-toolkit/hooks
 
-Currently, two official plugins are available:
+This package provides the following custom React hooks:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **usePromise**: A hook for handling promises with loading and error states.
+- **useDebounce**: A hook for debouncing a value.
 
-## Expanding the ESLint configuration
+##
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+You can use these hooks to simplify common tasks in your React applications.
 
-- Configure the top-level `parserOptions` property like this:
+## Installation
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+You can install the package via npm:
+
+```bash
+npm install @mo-toolkit/hooks
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+or via yarn:
+
+```bash
+yarn add @mo-toolkit/hooks
+```
+
+# Usage
+
+### usePromise
+
+```typescript
+// Your TypeScript code here
+import { usePromise } from "@mo-toolkit/hooks";
+
+// Usage example
+const [fetchData, data, isLoading, error, updateData, status, resetData] = usePromise(
+  async () => { // any method that returns a promise
+    // Your async function here
+  },
+  // Base configuration options (optional)
+    initReq: true, // Make an initial request
+    defaultRes: null, // Default response value
+    showError: true, // Show error messages
+    cachedResponse: false, // Cache response (default is resetting data at each call)
+);
+```
+
+#### Parameters
+
+- **promiseFunction**: An async function that returns a Promise.
+- **baseConfig**: An optional object containing base configuration options for the hook.
+
+#### Return Values
+
+The usePromise hook returns an array containing the following elements:
+
+- **fetchData**: A function that triggers the promise execution.
+- **data**: An optional object containing base configuration options for the hook.
+
+- **isLoading**: A boolean indicating whether the promise is currently loading.
+- **error**: The error message from the rejected promise.
+
+- **updateData**: A function to manually updates the data.
+- **status**: The status of the promise (success, idle, or error).
+
+- **resetData**: A function to reset the hook state.
+
+##
+
+### useDebounce
+
+```typescript
+import React, { useState } from "react";
+import { useDebounce } from "@mo-toolkit/hooks";
+
+const MyComponent = () => {
+  const [searchTerm, setSearchTerm] = useState("");
+  const debouncedSearchTerm = useDebounce(searchTerm, 500);
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(event.target.value);
+  };
+
+  // Use the debounced value for API requests or other actions
+  useEffect(() => {
+    // Perform an API request using the debounced search term
+    // Example: fetchResults(debouncedSearchTerm);
+  }, [debouncedSearchTerm]);
+
+  return (
+    <input
+      type="text"
+      value={searchTerm}
+      onChange={handleChange}
+      placeholder="Search..."
+    />
+  );
+};
+
+export default MyComponent;
+```
+
+#### Parameters
+
+- **value**: The value to debounce.
+- **delay**: The delay (in milliseconds) before the value is updated.
+
+#### Return Values
+
+The useDebounce hook returns the debounced value, which is updated after the specified delay has passed.
