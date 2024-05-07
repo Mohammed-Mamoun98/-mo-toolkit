@@ -1,22 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState, useEffect } from "react";
-
-const DEFAULT_ERROR = "Internal Server Error";
+import { IUsePromiseGlobalConf } from "./globalConf";
 
 type STATUS_TYPES = "success" | "idle" | "error";
 interface IBaseConfig {
   initReq?: boolean;
   defaultRes?: any;
   showError?: boolean;
-  showSuccess?: string;
-  sleep?: number;
-  maxRetries?: number;
-  expectedMaxWaitingTime?: number; // in ms
-  onSuccess?: (res?: any) => void;
-  onError?: (err?: any) => void;
   cachedResponse?: boolean;
-  deleteNotificationInMs?: number;
-  translationMsgParams?: Record<string, any>;
 }
 
 interface IHookState<Response = any> {
@@ -30,6 +21,8 @@ interface IHookState<Response = any> {
   status: STATUS_TYPES;
 }
 
+const windowObj = window as any;
+
 export const usePromise = <ResponseType = any, TParams extends any[] = any>(
   promiseFunction: (..._params: any[]) => Promise<ResponseType>,
   baseConfig: IBaseConfig = {}
@@ -42,8 +35,6 @@ export const usePromise = <ResponseType = any, TParams extends any[] = any>(
   STATUS_TYPES,
   () => void
 ] => {
-  //   const dispatch = useDispatch();
-
   const defaultHookState: IHookState<ResponseType> = {
     response: baseConfig?.defaultRes,
     loading: false || baseConfig?.initReq,
@@ -73,15 +64,10 @@ export const usePromise = <ResponseType = any, TParams extends any[] = any>(
 
   const updateResponse = (res: any) => updateHookState({ response: res });
 
-  const alertError = (errorMsg: string) => {
-    console.error(errorMsg);
-  };
-
-  const showSuccessMsg = () => {
-    if (baseConfig.showSuccess) console.log("Success");
-  };
-
   const executePromise = (...params: any[]): Promise<ResponseType> => {
+    const usePromiseConfig: IUsePromiseGlobalConf | undefined =
+      windowObj.usePromiseConf;
+
     const appendedResponse = baseConfig.cachedResponse
       ? { response: hookState.response }
       : { response: baseConfig.defaultRes };
@@ -93,38 +79,31 @@ export const usePromise = <ResponseType = any, TParams extends any[] = any>(
       error: "",
       ...appendedResponse,
     });
-    return new Promise((resolve, reject) => {
+
+    // eslint-disable-next-line no-async-promise-executor
+    return new Promise(async (resolve) => {
       if (!promiseFunction) return;
       try {
-        return promiseFunction(...(params as []))
-          .then(async (value) => {
-            updateHookState({
-              response: value,
-              loading: false,
-              status: "success",
-            });
-            if (baseConfig.showSuccess) showSuccessMsg();
-            resolve(value);
-          })
-          .catch((err) => {
-            const errorMessage =
-              err?.error?.message || err?.message || err || DEFAULT_ERROR;
-            if (baseConfig.showError) alertError(errorMessage);
-
-            updateHookState({
-              error: errorMessage,
-              loading: false,
-              status: "error",
-            });
-            reject(err);
-          });
-      } catch (error: any) {
+        const response = await promiseFunction(...(params as []));
         updateHookState({
-          error: error?.message,
+          response,
+          loading: false,
+          status: "success",
+        });
+        resolve(response);
+      } catch (error: any) {
+        const errorIsString = typeof error === "string";
+        const errorMessage = errorIsString ? error : error?.message;
+
+        if (baseConfig.showError && errorMessage && usePromiseConfig?.onError)
+          usePromiseConfig?.onError(errorMessage);
+
+        updateHookState({
+          error: errorMessage,
           loading: false,
           status: "error",
         });
-        reject(error);
+        // reject(error);
       }
     });
   };

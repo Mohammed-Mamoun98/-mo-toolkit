@@ -1,6 +1,6 @@
 import React from "react";
 import "./App.css";
-import { usePromise } from "@mo-toolkit/hooks";
+import { usePromise, setPromiseGlobalConfig } from "@mo-toolkit/hooks";
 
 const wait = (ms = 2000) =>
   new Promise((res) => {
@@ -11,17 +11,23 @@ const wait = (ms = 2000) =>
 
 const testPromise = async () => {
   await wait();
+
+  throw new Error("TEST ERROR");
   return {
     name: "",
     age: 26,
   };
 };
 
+setPromiseGlobalConfig({ onError: (err) => alert(err) });
+
 type Response = Awaited<ReturnType<typeof testPromise>>;
 
 function App() {
-  const [getSample, sample, loadingSample, error] =
-    usePromise<Response>(testPromise);
+  const [getSample, sample, loadingSample, error] = usePromise<Response>(
+    testPromise,
+    { showError: true }
+  );
   return (
     <>
       <p>Main App</p>
