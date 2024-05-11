@@ -1,7 +1,7 @@
 {
   "name": "@mo-toolkit/ui-blocks",
   "private": false,
-  "version": "0.0.2",
+  "version": "0.0.16",
   "type": "module",
   "main": "dist/index.umd.js",
   "module": "dist/index.es.js",
@@ -24,11 +24,11 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "clsx": "2.1.1",
     "path": "^0.12.7",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "vite-plugin-dts": "^3.9.1",
-    "clsx": "2.1.1"
+    "vite-plugin-dts": "^3.9.1"
   },
   "devDependencies": {
     "@types/react": "^18.2.66",
