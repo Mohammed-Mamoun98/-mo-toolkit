@@ -1,11 +1,12 @@
 {
   "name": "root",
-  "private": true,
+  "private": false,
   "workspaces": [
     "packages/*"
   ],
   "dependencies": {},
   "devDependencies": {
-    "lerna": "^8.1.2"
+    "lerna": "^8.1.2",
+    "@rollup/plugin-typescript": "11.1.6"
   }
 }
