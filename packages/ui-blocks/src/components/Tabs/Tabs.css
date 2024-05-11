@@ -1,0 +1,33 @@
+.tabs-picker {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  position: relative;
+
+  .tab {
+    cursor: pointer;
+    padding: 6px 12px;
+    white-space: pre;
+    svg {
+      min-width: 16px;
+      height: 16px;
+    }
+    &:hover {
+      color: var(--tabs-text-hover-color, #d4d4d4);
+    }
+    &.tab-active {
+      background-color: var(--tabs-text-active-bg-color, #f4f4f4);
+      color: var(--tabs-text-active-bg-color, gray);
+    }
+  }
+  .tabs-picker-active-indicator {
+    position: absolute;
+    height: 2px;
+    width: 100%;
+    z-index: 2;
+    bottom: -1px;
+    &.indicator-active {
+      background-color: var(--tabs-active-indicator-color, #6140ef);
+    }
+  }
+}
